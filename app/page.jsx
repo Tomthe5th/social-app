@@ -2,18 +2,15 @@ export const dynamic = "force-static";
 export const revalidate = 60; //seconds
 
 import Link from "next/link";
+import { prisma } from "../prisma/lib/route";
 
 export async function generateStaticParams() {
-  const posts = await fetch("http://localhost:3000/api/posts").then((res) =>
-    res.json()
-  );
+  const posts = await prisma.posts.findMany()
   return posts.map((post) => ({ id: post.id }));
 }
 
 export default async function Home() {
-  const posts = await fetch("http://localhost:3000/api/posts").then((res) =>
-    res.json()
-  );
+  const posts = await prisma.posts.findMany()
   return (
     <main>
       <section>
@@ -25,7 +22,7 @@ export default async function Home() {
               className="py-4 px-2 flex flex-col items-center justify-around  rounded-lg shadow-md "
             >
               <Link href={`/posts/${post.id}`}>
-                <h2>{post.author}</h2>
+                <h2>{post.title}</h2>
               </Link>
             </article>
           ))}
