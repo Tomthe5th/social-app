@@ -3,7 +3,7 @@ import React from "react";
 
 export default function Authcheck({ children }) {
   const { data: session, status } = useSession();
-console.log({session , status});
+//console.log({session , status});
 
   if (status === "authenticated") {
     return<> { children } </>;
