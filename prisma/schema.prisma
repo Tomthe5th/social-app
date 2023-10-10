@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -58,6 +58,13 @@ model Follows {
   following   User   @relation("following", fields: [followingId], references: [id])
 
   @@id([followerId, followingId])
+}
+
+model Posts {
+  id    String @id @default(cuid())
+  slug  String @unique
+  title String
+  body  String
 }
 
 model VerificationToken {

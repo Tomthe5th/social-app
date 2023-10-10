@@ -1,15 +1,21 @@
-export default async function PostDetails({ params }) {
-  const posts = await prisma.posts.findMany()
+import { prisma } from "../../../prisma/lib/route";
 
-  const post = posts.find((item) => item.id === Number(params.id));
+export default async function PostDetails({ params }) {
+  const post = await prisma.posts.findUnique({
+    where : {
+      id : toString(params.id)
+    }
+  })
+
+
   console.log({ post });
 
   return (
     <section>
       <article className=" h-[85vh]  flex justify-center items-center">
         <div className="container mt-4 py-6 mx-auto flex flex-col items-center justify-around border rounded-lg shadow-md ">
-          <h3>{post.slug}</h3>
-          <p>{post.body}</p>
+          <h3>{post?.title}</h3>
+          <p>{post?.body}</p>
         </div>
       </article>
     </section>
