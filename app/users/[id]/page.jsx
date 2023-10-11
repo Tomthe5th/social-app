@@ -1,5 +1,5 @@
 import FollowButton from "@/components/Followbutton/FollowButton";
-import { prisma } from "@/prisma/lib/prisma"
+import { prisma } from "@/prisma/lib/route"
 
 export default async function UserDetails({params}) {
   const user = await prisma.user.findUnique({

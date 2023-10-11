@@ -1,19 +1,23 @@
-import { prisma } from "@/prisma/lib/prisma";
+import { prisma } from "@/prisma/lib/route";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
+import { authOptions } from "../auth/[...nextauth]/route";
 
 export async function POST(request) {
-  const { data: session, status } = useSession();
+  const session = await getServerSession(authOptions);
 
   console.log({ user: session.user });
 
   const currentUserEmail = session?.user?.email;
 
-  const currentUserId = await prisma.user.findUnique({ //promise
-    where: {
-      email: currentUserEmail
-    }
-  }).then((user)=> user.id)
+  const currentUserId = await prisma.user
+    .findUnique({
+      //promise
+      where: {
+        email: currentUserEmail,
+      },
+    })
+    .then((user) => user.id);
 
   const { targetUserId } = await request.json();
 
@@ -28,30 +32,29 @@ export async function POST(request) {
   return NextResponse.json(record);
 }
 
-
-
 export async function DELETE(request) {
-  const session = await getServerSession(authOptions.session);
-  
+  const session = await getServerSession(authOptions);
+  //another way (searchparams) //can execute the same as POST
+  const targetUserId = request.nextUrl.searchParams.get("targetUserId");
+
   const currentUserEmail = session?.user?.email;
 
-  const currentUserId = await prisma.user.findUnique({ //promise
-    where: {
-      email: currentUserEmail
-    }
-  }).then((user)=> user.id)
+  const currentUserId = await prisma.user
+    .findUnique({
+      //promise
+      where: {
+        email: currentUserEmail,
+      },
+    })
+    .then((user) => user.id);
 
-
-  //another way (searchparams) //can execute the same as POST
-  const targetUserId = request.nextUrl.searchparams.get("targetUserId");
-
-  await prisma.follows.delete({
+  const record = await prisma.follows.delete({
     where: {
       followerId_followingId: {
-        followerIdent: currentUserId,
+        followerId: currentUserId,
         followingId: targetUserId,
       },
-    },  
+    },
   });
 
   return NextResponse.json(record);

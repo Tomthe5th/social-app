@@ -1,5 +1,5 @@
 import UserCard from "@/components/UserCard";
-import { prisma } from "@/prisma/lib/prisma";
+import { prisma } from "@/prisma/lib/route";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";

@@ -11,6 +11,7 @@ export async function generateStaticParams() {
 
 export default async function Home() {
   const posts = await prisma.posts.findMany()
+  
   return (
     <main>
       <section>

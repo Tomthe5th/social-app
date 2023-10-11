@@ -1,7 +1,8 @@
-import { prisma } from "@/prisma/lib/prisma";
+
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/route";
 import { NextResponse } from "next/server";
+import { prisma } from "@/prisma/lib/route";
 
 export async function PUT(request) {
   const session = await getServerSession(authOptions);

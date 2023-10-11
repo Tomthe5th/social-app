@@ -1,6 +1,6 @@
 
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { prisma } from "@/prisma/lib/prisma";
+import { prisma } from "@/prisma/lib/route";
 import { getServerSession } from "next-auth";
 import React from "react";
 import FollowClient from "./FollowClient";
