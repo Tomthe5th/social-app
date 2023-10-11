@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { SignInButton, SignOutButton } from "./Buttons";
-import AuthCheck from "./AuthCheck";
+import Authcheck from "./Authcheck";
 //move
 export default function NavMenu() {
   return (
@@ -25,9 +25,9 @@ export default function NavMenu() {
           </li>
 
           <li>
-            <AuthCheck>
+            <Authcheck>
               <SignOutButton />
-            </AuthCheck>
+            </Authcheck>
           </li>
         </ul>
       </div>
