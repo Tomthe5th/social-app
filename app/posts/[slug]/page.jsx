@@ -2,13 +2,12 @@ import { prisma } from "../../../prisma/lib/route";
 
 export default async function PostDetails({ params }) {
   const post = await prisma.posts.findUnique({
-    where : {
-      id : toString(params.id)
-    }
-  })
+    where: {
+      slug: params.slug,
+    },
+  });
 
-
-  console.log({ post });
+  // console.log({ post });
 
   return (
     <section>

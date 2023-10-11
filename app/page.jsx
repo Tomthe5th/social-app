@@ -18,10 +18,10 @@ export default async function Home() {
           <h2>User posts</h2>
           {posts.map((post) => (
             <article
-              key={post.id}
+              key={post.slug}
               className="py-4 px-2 flex flex-col items-center justify-around  rounded-lg shadow-md "
             >
-              <Link href={`/posts/${post.id}`}>
+              <Link href={`/posts/${post.slug}`}>
                 <h2>{post.title}</h2>
               </Link>
             </article>
